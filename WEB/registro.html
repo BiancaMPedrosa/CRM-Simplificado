@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/registrostyle.css">
+    <title>Registre-se</title>
+</head>
+<body>
+    
+    <header>
+        <p><b>CRM 2Tes — Sistema Simplificado</b></p>
+    </header>
+
+    <div class="registro-container">
+        <h1>Crie sua conta</h1>
+        <form onsubmit="return false">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" placeholder="Seu nome completo" required>
+
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Seu email" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" placeholder="Sua senha" required>
+
+            <button type="button" id="registrobtn">Registrar</button>
+
+            <p class="continue">ou registre-se com</p>
+
+            <button type="button" id="googlebtn">Registrar com Google</button>
+
+            <p class="login-link">Já tem uma conta? <a href="login.html">Faça login aqui</a></p>
+        </form>
+    </div>
+
+    <script type="module" src="JS/registro.js"></script>
+
+</body>
+</html>

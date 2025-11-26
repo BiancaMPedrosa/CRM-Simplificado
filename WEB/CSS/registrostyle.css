@@ -16,7 +16,7 @@ header {
     font-size: 24px;
 }
 
-.login-container {
+.registro-container {
     background-color: #ffffff;
     padding: 40px;
     border-radius: 8px;
@@ -26,7 +26,7 @@ header {
     width: 500px;
 }
 
-.login-container h1 {
+.registro-container h1 {
     margin-bottom: 20px;
     color: black;
     font-family: Arial, sans-serif;
@@ -52,29 +52,20 @@ form input {
     font-size: 16px;
 }
 
-form #loginbtn {
+form #registrobtn {
     margin: 0 auto;
     padding: 10px;
     background-color: #22A0A2;
     color: white;
     border: none;
-    border-radius: 35px;
+    border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
     width: 95%;
 }
 
-form button:hover {
-    background-color: #1e8b8d;
-}
-
-form input::placeholder {
-    text-align: center;
-}
-
-form input:focus {
-    border-color: #22A0A2;
-    outline: none;
+form #registrobtn:hover {
+    background-color: #1b7f80;
 }
 
 form #googlebtn {
@@ -87,10 +78,6 @@ form #googlebtn {
     font-size: 16px;
     cursor: pointer;
     width: 95%;
-}
-
-form #googlebtn:hover {
-    background-color: #c33d2e;
 }
 
 p.continue {
@@ -118,25 +105,3 @@ p.continue::after {
     margin-left: 16px;
 }
 
-.signup-link {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
-}
-
-.signup-link a {
-    color: #22A0A2;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-@media (max-width: 600px) {
-    .login-container {
-        width: 90%;
-        padding: 20px;
-    }
-}
-
-form #loginbtn:hover {
-    background-color: #1e8b8d;
-}

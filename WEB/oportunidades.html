@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Oportunidades — CRM 2Tes</title>
+        <link rel="stylesheet" href="CSS/sidebarstyle.css">
+        <link rel="stylesheet" href="CSS/oportunidadesstyle.css">
+    </head>
+    <body>
+
+        <div class="sidebar">
+            <h2 class="sidebar-title">CRM 2Tes</h2>
+
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="dashboard.html">
+                        <span class="icon">📈</span>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="clientes.html">
+                        <span class="icon">👤</span>
+                        Clientes
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="oportunidades.html">
+                        <span class="icon">💼</span>
+                        Oportunidades
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="interacoes.html">
+                        <span class="icon">💬</span>
+                        Interações
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="usuarios.html">
+                        <span class="icon">👥</span>
+                        Usuários
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#" id="logoutBtn">
+                        <span class="icon">⏻</span>
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <main>
+            <section class="card">
+                <h2>Oportunidades</h2>
+
+                <div class="toolbar">
+                    <button id="btnNovaOportunidade" class="add-button">+ Nova Oportunidade</button>
+                    <input id="searchOportunidade" class="search-input" type="search" placeholder="Pesquisar por nome...">
+                </div>
+
+                <table id="tabelaOportunidades">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cliente</th>
+                            <th>Valor</th>
+                            <th>Etapa</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+        </main>
+
+        <!-- MODAL -->
+        <div id="modalOportunidade" class="modal hidden">
+            <div class="modal-content">
+                <h3 id="tituloModal">Nova Oportunidade</h3>
+
+                <label>Nome</label>
+                <input type="text" id="opNome" required>
+
+                <label>Cliente</label>
+                <select id="opCliente" required></select>
+
+                <label>Valor (R$)</label>
+                <input type="number" id="opValor" step="0.01" required>
+
+                <label>Etapa</label>
+                <select id="opEtapa" required>
+                    <option>Contato</option>
+                    <option>Proposta</option>
+                    <option>Negociação</option>
+                    <option>Fechamento</option>
+                    <option>Perdida</option>
+                </select>
+
+                <label>Anotações</label>
+                <textarea id="opAnotacoes"></textarea>
+
+                <div class="modal-buttons">
+                    <button id="salvarOportunidade" class="save">Salvar</button>
+                    <button id="cancelarOportunidade" class="cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="app.js"></script>
+        <script type="module" src="JS/oportunidades.js"></script>
+
+    </body>
+</html>

@@ -1,7 +1,7 @@
 // Importações do Firebase via CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -20,4 +20,9 @@ const app = initializeApp(firebaseConfig);
 
 // Exporta serviços
 export const auth = getAuth(app);
+
+setPersistence(auth, browserLocalPersistence).catch(err => {
+  console.warn('Falha ao aplicar persistência do auth:', err);
+});
+
 export const db = getFirestore(app);

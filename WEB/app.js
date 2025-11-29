@@ -1,47 +1,60 @@
-import { auth, db } from "./firebase.js";
-
+// ---------- IMPORTAÇÕES ----------
+import { auth } from "./firebase.js";
 import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-import {
-  doc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// verifica login ao carregar qualquer página protegida
-onAuthStateChanged(auth, async (user) => {
+// ---------- CONFIGURAÇÃO ----------
+const publicPages = ["login.html", "registro.html"];
+const currentPage = window.location.pathname.split("/").pop() || "clientes.html";
+
+
+// ---------- FUNÇÃO: DESTACAR ITEM DA SIDEBAR ----------
+function highlightSidebar() {
+  try {
+    document.querySelectorAll(".menu-item").forEach(li => li.classList.remove("active"));
+    const link = document.querySelector(`.menu-item a[href="${currentPage}"]`);
+    if (link?.parentElement) link.parentElement.classList.add("active");
+  } catch (e) {
+    // página sem sidebar (login/registro)
+  }
+}
+
+
+// ---------- VERIFICAÇÃO DE LOGIN ----------
+onAuthStateChanged(auth, user => {
+  const isPublicPage = publicPages.includes(currentPage);
+
   if (!user) {
-    window.location.href = "login.html";
+    // usuário não logado
+    if (!isPublicPage) {
+      window.location.replace("login.html");
+    }
     return;
   }
 
-  console.log("Usuário logado:", user.email);
-
-  // carregar dados do Firestore
-  const ref = doc(db, "usuarios", user.uid);
-  const snap = await getDoc(ref);
-
-  if (snap.exists()) {
-    const dados = snap.data();
-
-    // se tiver um elemento com id="nomeUsuario", preencher
-    const nomeElemento = document.getElementById("nomeUsuario");
-    if (nomeElemento) {
-      nomeElemento.innerText = dados.nome || user.email;
-    }
-
-    console.log("Dados carregados:", dados);
+  // usuário logado
+  if (isPublicPage) {
+    // acessando login/registro enquanto logado
+    window.location.replace("clientes.html");
+    return;
   }
+
+  // para páginas normais com sidebar
+  highlightSidebar();
 });
 
-// evento do botão de logout
-const btnLogout = document.getElementById("logoutBtn");
 
-if (btnLogout) {
-  btnLogout.addEventListener("click", async () => {
-    await signOut(auth);
-    window.location.href = "login.html";
-  });
+// ---------- FUNÇÃO DE LOGOUT ----------
+try {
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth);
+    });
+  }
+} catch (e) {
+  // página não possui botão de logout (login/registro)
 }

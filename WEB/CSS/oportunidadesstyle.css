@@ -1,0 +1,128 @@
+.card {
+    background: white;
+    width: 90%;
+    max-width: 900px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 7px #0002;
+    margin: 40px auto;
+}
+
+.add-button {
+    background: #27ae60;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #ececec;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+button.action {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit {
+    background: #f1c40f;
+    color: black;
+}
+
+.delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0007;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.save {
+    background: #2ecc71;
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel {
+    background: #bdc3c7;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.search-input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 200px;
+    max-width: 200px;
+    width: 25vw;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 600px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-input {
+        width: 100%;
+    }
+}

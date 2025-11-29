@@ -10,6 +10,8 @@ import {
     onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
 let idEdicao = null;
 
 // ELEMENTOS
@@ -87,25 +89,47 @@ btnSalvar.addEventListener("click", async () => {
 //  LISTAR CLIENTES EM TEMPO REAL
 // ----------------------------
 
-onSnapshot(collection(db, "clientes"), (snapshot) => {
-    tabela.innerHTML = "";
+onAuthStateChanged(auth, (user) => {
+    // se não estiver logado, manda para login e não conecta ao Firestore
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
 
-    snapshot.forEach(docSnap => {
-        const cli = docSnap.data();
+    // usuário autenticado -> conecta o onSnapshot
+    const unsubscribe = onSnapshot(collection(db, "clientes"),
+        (snapshot) => {
+            tabela.innerHTML = "";
 
-        tabela.innerHTML += `
-            <tr>
-                <td>${cli.nome}</td>
-                <td>${cli.empresa}</td>
-                <td>${cli.email}</td>
-                <td>${cli.telefone}</td>
-                <td>
-                    <button class="action edit" data-id="${docSnap.id}">Editar</button>
-                    <button class="action delete" data-id="${docSnap.id}">Excluir</button>
-                </td>
-            </tr>
-        `;
-    });
+            snapshot.forEach(docSnap => {
+                const cli = docSnap.data();
+
+                tabela.innerHTML += `
+                    <tr>
+                        <td>${cli.nome}</td>
+                        <td>${cli.empresa}</td>
+                        <td>${cli.email}</td>
+                        <td>${cli.telefone}</td>
+                        <td>
+                            <button class="action edit" data-id="${docSnap.id}">Editar</button>
+                            <button class="action delete" data-id="${docSnap.id}">Excluir</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        },
+        (error) => {
+            console.error("Erro no listener de clientes:", error);
+            if (error && error.code === "permission-denied") {
+                // possível sessão inválida / regras do Firestore
+                alert("Permissão negada. Faça login novamente.");
+                auth.signOut().catch(()=>{}).finally(()=> window.location.replace("login.html"));
+            }
+        }
+    );
+
+    // opcional: se quiser cancelar o listener quando o usuário fizer sign-out
+    // onAuthStateChanged irá chamar novamente com user=null e você pode usar unsubscribe() se necessário.
 });
 
 // ----------------------------

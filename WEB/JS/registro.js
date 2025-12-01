@@ -11,11 +11,9 @@ import {
     setDoc 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// botoes
 const registroBtn = document.getElementById("registrobtn");
 const googleBtn    = document.getElementById("googlebtn");
 
-// registro com email e senha
 registroBtn.addEventListener("click", async () => {
 
     const nome  = document.getElementById("nome").value;
@@ -30,7 +28,6 @@ registroBtn.addEventListener("click", async () => {
     try {
         const cred = await createUserWithEmailAndPassword(auth, email, senha);
 
-        // salva dados no Firestore
         await setDoc(doc(db, "usuarios", cred.user.uid), {
             nome: nome,
             email: email,
@@ -49,7 +46,6 @@ registroBtn.addEventListener("click", async () => {
     }
 });
 
-// registro / login com google
 googleBtn.addEventListener("click", async () => {
 
     const provider = new GoogleAuthProvider();
@@ -57,14 +53,13 @@ googleBtn.addEventListener("click", async () => {
     try {
         const result = await signInWithPopup(auth, provider);
 
-        // salva no Firestore apenas a primeira vez
         await setDoc(doc(db, "usuarios", result.user.uid), {
             nome: result.user.displayName,
             email: result.user.email,
             criadoEm: new Date(),
             cargo: "user",
             bloqueado: false,
-        }, { merge: true }); // não sobrescreve dados existentes
+        }, { merge: true });
 
         alert("Conta criada com Google!");
 

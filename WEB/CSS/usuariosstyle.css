@@ -1,10 +1,8 @@
-/* -------- Layout geral -------- */
 main {
     margin-left: 260px;
     padding: 40px;
 }
 
-/* -------- Título e botão -------- */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -40,7 +38,6 @@ main {
     cursor: pointer;
 }
 
-/* -------- Card da lista de usuários -------- */
 .usuarios-card {
     margin-top: 20px;
     padding: 25px;
@@ -49,7 +46,6 @@ main {
     box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
-/* -------- Tabela -------- */
 .usuarios-table {
     width: 100%;
     border-collapse: collapse;
@@ -70,7 +66,6 @@ main {
     background: #f9f9f9;
 }
 
-/* -------- Ações -------- */
 .acao-btn {
     border: none;
     background: none;

@@ -12,7 +12,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
-// login com email e senha
 const loginBtn = document.getElementById("loginbtn");
 
 loginBtn.addEventListener("click", () => {
@@ -29,8 +28,6 @@ loginBtn.addEventListener("click", () => {
       });
 });
 
-
-// login com Google
 const googleBtn = document.getElementById("googlebtn");
 const provider = new GoogleAuthProvider();
 
@@ -39,9 +36,6 @@ googleBtn.addEventListener("click", async () => {
         const result = await signInWithPopup(auth, provider);
 
         const user = result.user;
-
-    
-        // (Opcional) Salvar dados do usuário no Firestore
     
         await setDoc(doc(db, "usuarios", user.uid), {
             nome: user.displayName,
@@ -51,7 +45,6 @@ googleBtn.addEventListener("click", async () => {
         }, { merge: true });
 
         clearInputs();
-        // Redireciona para o dashboard
         window.location = "dashboard.html";
 
     } catch (error) {

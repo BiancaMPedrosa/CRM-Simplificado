@@ -12,9 +12,6 @@ import {
     where
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// -------------------------------------------------------------
-// VARIÁVEIS E ELEMENTOS
-// -------------------------------------------------------------
 let idEdicao = null;
 
 const modal = document.getElementById("modalInteracao");
@@ -31,9 +28,6 @@ const inputProx = document.getElementById("intProx");
 const tabela = document.querySelector("#tabelaInteracoes tbody");
 const searchCliente = document.getElementById("searchCliente");
 
-// -------------------------------------------------------------
-// CARREGAR CLIENTES NO SELECT
-// -------------------------------------------------------------
 onSnapshot(collection(db, "clientes"), snapshot => {
     inputCliente.innerHTML = "";
 
@@ -43,9 +37,6 @@ onSnapshot(collection(db, "clientes"), snapshot => {
     });
 });
 
-// -------------------------------------------------------------
-// CARREGAR OPORTUNIDADES NO SELECT (opcionais)
-// -------------------------------------------------------------
 onSnapshot(collection(db, "oportunidades"), snapshot => {
     inputOportunidade.innerHTML = `<option value="">Nenhuma</option>`;
 
@@ -59,9 +50,6 @@ onSnapshot(collection(db, "oportunidades"), snapshot => {
     });
 });
 
-// -------------------------------------------------------------
-// ABRIR MODAL
-// -------------------------------------------------------------
 btnNova.addEventListener("click", () => {
     idEdicao = null;
 
@@ -76,16 +64,10 @@ btnNova.addEventListener("click", () => {
     modal.classList.remove("hidden");
 });
 
-// -------------------------------------------------------------
-// CANCELAR
-// -------------------------------------------------------------
 btnCancelar.addEventListener("click", () => {
     modal.classList.add("hidden");
 });
 
-// -------------------------------------------------------------
-// SALVAR INTERAÇÃO
-// -------------------------------------------------------------
 btnSalvar.addEventListener("click", async () => {
 
     const clienteId = inputCliente.value;
@@ -121,9 +103,6 @@ btnSalvar.addEventListener("click", async () => {
     modal.classList.add("hidden");
 });
 
-// -------------------------------------------------------------
-// LISTAR INTERAÇÕES
-// -------------------------------------------------------------
 onSnapshot(
     query(collection(db, "interacoes")),
     snapshot => {
@@ -159,12 +138,8 @@ onSnapshot(
     }
 );
 
-// -------------------------------------------------------------
-// EDIÇÃO
-// -------------------------------------------------------------
 tabela.addEventListener("click", async (e) => {
 
-    // editar
     if (e.target.classList.contains("edit")) {
 
         const id = e.target.getAttribute("data-id");
@@ -186,7 +161,6 @@ tabela.addEventListener("click", async (e) => {
         modal.classList.remove("hidden");
     }
 
-    // excluir
     if (e.target.classList.contains("delete")) {
         const id = e.target.getAttribute("data-del");
 
@@ -196,9 +170,6 @@ tabela.addEventListener("click", async (e) => {
     }
 });
 
-// -------------------------------------------------------------
-// BUSCA POR CLIENTE
-// -------------------------------------------------------------
 function aplicarFiltro() {
     const q = searchCliente.value.trim().toLowerCase();
 

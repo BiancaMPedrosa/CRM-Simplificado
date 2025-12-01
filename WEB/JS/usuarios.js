@@ -14,9 +14,6 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// -------------------------------
-// VERIFICAR LOGIN + PERMISSÃO
-// -------------------------------
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -39,9 +36,6 @@ onAuthStateChanged(auth, async (user) => {
   carregarUsuarios();
 });
 
-// -------------------------------
-// CARREGAR USUÁRIOS
-// -------------------------------
 async function carregarUsuarios() {
   const snap = await getDocs(collection(db, "usuarios"));
   const tabela = document.getElementById("listaUsuarios");
@@ -72,12 +66,8 @@ async function carregarUsuarios() {
   registrarEventos();
 }
 
-// -------------------------------
-// REGISTRAR EVENTOS DOS BOTÕES
-// -------------------------------
 function registrarEventos() {
 
-  // Editar
   document.querySelectorAll(".editar").forEach((btn) => {
     btn.onclick = async () => {
       const id = btn.dataset.id;
@@ -96,7 +86,6 @@ function registrarEventos() {
     };
   });
 
-  // Bloquear / desbloquear
   document.querySelectorAll(".status").forEach((btn) => {
     btn.onclick = async () => {
 
@@ -118,7 +107,6 @@ function registrarEventos() {
     };
   });
 
-  // Deletar
   document.querySelectorAll(".deletar").forEach((btn) => {
     btn.onclick = async () => {
       const id = btn.dataset.id;

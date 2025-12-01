@@ -13,9 +13,6 @@ import {
 
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// -------------------------------
-// ESPERAR LOGIN
-// -------------------------------
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -24,9 +21,6 @@ onAuthStateChanged(auth, (user) => {
   carregarDashboard();
 });
 
-// -------------------------------
-// DASHBOARD PRINCIPAL
-// -------------------------------
 async function carregarDashboard() {
   await Promise.all([
     carregarContadores(),
@@ -36,21 +30,15 @@ async function carregarDashboard() {
   ]);
 }
 
-// -------------------------------
-// 1) CONTADORES
-// -------------------------------
 async function carregarContadores() {
-  // Total de clientes
   const snapClientes = await getDocs(collection(db, "clientes"));
   document.getElementById("totalClientes").innerText = snapClientes.size;
 
-  // Oportunidades não fechadas
   const snapOp = await getDocs(
     query(collection(db, "oportunidades"), where("etapa", "!=", "Fechado"))
   );
   document.getElementById("totalOportunidades").innerText = snapOp.size;
 
-  // Interações hoje
   const hoje = new Date();
   hoje.setHours(0, 0, 0, 0);
 
@@ -63,9 +51,6 @@ async function carregarContadores() {
   document.getElementById("interacoesHoje").innerText = snapInt.size;
 }
 
-// -------------------------------
-// 2) ÚLTIMOS CLIENTES
-// -------------------------------
 async function carregarUltimosClientes() {
   const snap = await getDocs(
     query(
@@ -89,9 +74,6 @@ async function carregarUltimosClientes() {
   });
 }
 
-// ---------------------------------------------------------
-// 3) GRÁFICO DE INTERAÇÕES – OPTIMIZADO PARA 1 ÚNICA QUERY
-// ---------------------------------------------------------
 async function gerarGraficoInteracoes() {
   const hoje = new Date();
   hoje.setHours(0, 0, 0, 0);
@@ -99,7 +81,6 @@ async function gerarGraficoInteracoes() {
   const seteDiasAtras = new Date(hoje);
   seteDiasAtras.setDate(hoje.getDate() - 6);
 
-  // 🔥 apenas 1 consulta ao Firestore
   const snap = await getDocs(
     query(
       collection(db, "interacoes"),
@@ -107,7 +88,6 @@ async function gerarGraficoInteracoes() {
     )
   );
 
-  // Agrupamento em memória (super leve)
   const contagem = {};
 
   for (let i = 0; i < 7; i++) {
@@ -148,9 +128,6 @@ async function gerarGraficoInteracoes() {
   });
 }
 
-// -------------------------------------------
-// 4) GRÁFICO DE OPORTUNIDADES – LEVE
-// -------------------------------------------
 async function gerarGraficoOportunidades() {
   const snap = await getDocs(collection(db, "oportunidades"));
 

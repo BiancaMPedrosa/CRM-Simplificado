@@ -26,9 +26,6 @@ const inputValor = document.getElementById("opValor");
 const inputEtapa = document.getElementById("opEtapa");
 const inputAnot = document.getElementById("opAnotacoes");
 
-// -------------------------------------------------------------
-// CARREGAR CLIENTES PARA O SELECT
-// -------------------------------------------------------------
 onSnapshot(collection(db, "clientes"), snapshot => {
     inputCliente.innerHTML = "";
     snapshot.forEach(docSnap => {
@@ -37,9 +34,6 @@ onSnapshot(collection(db, "clientes"), snapshot => {
     });
 });
 
-// -------------------------------------------------------------
-// ABRIR MODAL
-// -------------------------------------------------------------
 btnNova.addEventListener("click", () => {
     idEdicao = null;
     document.getElementById("tituloModal").innerText = "Nova Oportunidade";
@@ -52,18 +46,11 @@ btnNova.addEventListener("click", () => {
     
 });
 
-// -------------------------------------------------------------
-// CANCELAR MODAL
-// -------------------------------------------------------------
 btnCancelar.addEventListener("click", () => {
     modal.classList.add("hidden");
 });
 
-// -------------------------------------------------------------
-// SALVAR OPORTUNIDADE
-// -------------------------------------------------------------
 btnSalvar.addEventListener("click", async () => {
-    // validações (todos obrigatórios exceto anotacoes)
     const nome = inputNome.value.trim();
     const clienteId = inputCliente.value;
     const valorRaw = (inputValor.value || "").toString().trim();
@@ -87,7 +74,6 @@ btnSalvar.addEventListener("click", async () => {
         return;
     }
 
-    // aceita vírgula decimal
     const valor = Number(valorRaw.replace(",", "."));
     if (Number.isNaN(valor)) {
         alert("Valor inválido. Use apenas números (ex: 1000.50).");
@@ -134,9 +120,6 @@ btnSalvar.addEventListener("click", async () => {
     }
 });
 
-// -------------------------------------------------------------
-// LISTAR OPORTUNIDADES
-// -------------------------------------------------------------
 const tabela = document.querySelector("#tabelaOportunidades tbody");
 
 onSnapshot(collection(db, "oportunidades"), snapshot => {
@@ -146,7 +129,6 @@ onSnapshot(collection(db, "oportunidades"), snapshot => {
     snapshot.forEach(docSnap => {
         const op = docSnap.data();
 
-        // garante número válido para toFixed
         const valorNum = (typeof op.valor === "number") ? op.valor : (Number(op.valor) || 0);
 
         const row = document.createElement("tr");
@@ -165,13 +147,9 @@ onSnapshot(collection(db, "oportunidades"), snapshot => {
     });
 });
 
-// -------------------------------------------------------------
-// BOTÃO EDITAR / EXCLUIR
-// -------------------------------------------------------------
 tabela.addEventListener("click", async (e) => {
     const target = e.target;
 
-    // EDITAR
     if (target.classList.contains("edit")) {
         const id = target.getAttribute("data-id");
         const snap = await getDoc(doc(db, "oportunidades", id));
@@ -194,13 +172,11 @@ tabela.addEventListener("click", async (e) => {
         return;
     }
 
-    // EXCLUIR
     if (target.classList.contains("delete")) {
         const id = target.getAttribute("data-id");
 
         if (!confirm("Deseja excluir esta oportunidade?")) return;
 
-        // garante usuário autenticado
         if (!auth.currentUser) {
             alert("Usuário não autenticado. Faça login novamente.");
             window.location.replace("login.html");
@@ -221,9 +197,6 @@ tabela.addEventListener("click", async (e) => {
     }
 });
 
-// ----------------------------
-//  FILTRO DE BUSCA
-// ----------------------------
 
 searchInput.addEventListener("input", () => {
     const termo = searchInput.value.toLowerCase();

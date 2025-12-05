@@ -7,3 +7,7 @@ A solução foi construída utilizando HTML, CSS, JavaScript e o Firebase, que f
 Este repositório reúne o código-fonte, scripts SQL e materiais utilizados no desenvolvimento do projeto.
 
 url pública: https://superlative-lolly-c9af51.netlify.app/login.html
+
+atualmente, se for para a página de registro via página de login, o site volta automaticamente para a página de login, este é um erro que estamos tentando corrigir, caso queira se registrar, use a seguinte url: https://superlative-lolly-c9af51.netlify.app/registro.html
+
+este é um erro de hospedagem.
